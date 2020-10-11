@@ -1,2 +1,0 @@
-/Users/arkham/Github/UCMake/ground/test00/CMakeFiles/rebuild_cache.dir
-/Users/arkham/Github/UCMake/ground/test00/CMakeFiles/edit_cache.dir
