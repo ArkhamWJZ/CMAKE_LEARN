@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
-project (Test VERSION 1.2.3.4)
+project (JZZ_Test VERSION 1.2.3.4)
 
 set(A_A wanjianzhou)
 set(var A)
-# message(STATUS "${A_${var}}")
+message(STATUS "${A_${var}}")
+message(jianzhou ${A_A})
+message(STATUS "A_A")
 
 function(PrintVar var)
 	message(STATUS "${var}: ${${var}}")
@@ -28,19 +30,22 @@ set(Ubpa_filepath "${PROJECT_SOURCE_DIR}/CMakeLists.txt" CACHE FILEPATH "Ubpa fi
 
 function(Parse)
   cmake_parse_arguments("ARG" # prefix
-                        "TEST;INSTALL" # TRUE / FALSE
+                        "TEST;INSTALL;JZZ" # TRUE / FALSE
                         "MODE"
                         "NUMS" # list
                         ${ARGN})
+  # Options
   PrintVar(ARG_TEST)
   PrintVar(ARG_INSTALL)
+  PrintVar(ARG_JZZ)
+  # Keywords
   PrintVar(ARG_MODE)
   PrintVar(ARG_NUMS)
 endfunction()
 
-Parse(TEST
-  MODE EXE
-  NUMS 1 2 3 4)
+Parse(TEST JZZ
+  MODE BREAKDOWN
+  NUMS 1 2 3 4 5 6)
 
 set(i 0)
 set(n 5)
@@ -62,19 +67,19 @@ while(i LESS n)
   list(GET list0 ${i} v0)
   list(GET list1 ${i} v1)
   message(STATUS "${v0}, ${v1}")
-  math(EXPR i "${i} + 1")
+  math(EXPR i "${i} + 1") # i++
 endwhile()
 
 set(numletters 1 a 2 b 3 c)
 list(LENGTH numletters n)
 set(i 0)
 while(i LESS n)
-  list(SUBLIST numletters ${i} 2 numletter)
+  list(SUBLIST numletters ${i} 2 numletter) #sublist : input begin length output
   list(GET numletter 0 num)
   list(GET numletter 1 letter)
-  
+
   message(STATUS "num : ${num}, letter : ${letter}")
-  
+
   math(EXPR i "${i} + 2")
 endwhile()
 
@@ -91,6 +96,7 @@ while(i LESS_EQUAL CMAKE_MATCH_COUNT)
   PrintVar(CMAKE_MATCH_${i})
   math(EXPR i "${i} + 1")
 endwhile()
+PrintValue("  ")
 
 string(REGEX
 	MATCHALL
@@ -105,6 +111,7 @@ while(i LESS_EQUAL CMAKE_MATCH_COUNT)
   PrintVar(CMAKE_MATCH_${i})
   math(EXPR i "${i} + 1")
 endwhile()
+PrintValue("   ")
 
 set(data 1 2 3 4 5 a 6 b 7)
 list(FILTER data
@@ -117,9 +124,9 @@ list(FILTER data
   EXCLUDE
   REGEX "[0-9]")
 PrintVar(data)
+PrintValue("    ")
 
 set(specialStr "aaa;bbb")
-
 # example 1
 message(STATUS ${specialStr}) # aaabbb
 message(STATUS "${specialStr}") # aaa;bbb
@@ -131,14 +138,16 @@ endfunction()
 
 PrintVar(${specialStr})
 PrintVar("${specialStr}")
+PrintValue("    ")
 
 file(READ "${CMAKE_SOURCE_DIR}/CMakeLists.txt" filestr)
 # PrintValue("${filestr}")
-
 file(REMOVE_RECURSE "testdir")
 
 set(flag 0)
 if(flag)
   message(STATUS "flag")
 endif()
+
+PrintValue("Everything have been done")
 
