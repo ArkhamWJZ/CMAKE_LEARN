@@ -142,7 +142,7 @@ PrintValue("    ")
 
 file(READ "${CMAKE_SOURCE_DIR}/CMakeLists.txt" filestr)
 # PrintValue("${filestr}")
-file(REMOVE_RECURSE "testdir")
+file(REMOVE_RECURSE "testdir") # remove dir
 
 set(flag 0)
 if(flag)

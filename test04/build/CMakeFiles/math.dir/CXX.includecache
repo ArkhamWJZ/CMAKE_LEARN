@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/add.h
+
+../include/div.h
+
+../include/sub.h
+
+/Users/arkham/Github/JZZ_CMAKE/test04/src/add.cpp
+add.h
+/Users/arkham/Github/JZZ_CMAKE/test04/src/add.h
+
+/Users/arkham/Github/JZZ_CMAKE/test04/src/div.cpp
+div.h
+/Users/arkham/Github/JZZ_CMAKE/test04/src/div.h
+
+/Users/arkham/Github/JZZ_CMAKE/test04/src/sub.cpp
+sub.h
+/Users/arkham/Github/JZZ_CMAKE/test04/src/sub.h
+

@@ -1,0 +1,3 @@
+/Users/arkham/Github/JZZ_CMAKE/test04/build/CMakeFiles/rebuild_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test04/build/CMakeFiles/edit_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test04/build/CMakeFiles/hello.dir
