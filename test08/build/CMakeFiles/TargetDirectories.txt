@@ -1,0 +1,11 @@
+/Users/arkham/Github/JZZ_CMAKE/test08/build/CMakeFiles/rebuild_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/CMakeFiles/edit_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test1/CMakeFiles/rebuild_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test1/CMakeFiles/edit_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test1/CMakeFiles/jian.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test2/CMakeFiles/rebuild_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test2/CMakeFiles/edit_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test2/CMakeFiles/wan.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test3/CMakeFiles/rebuild_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test3/CMakeFiles/edit_cache.dir
+/Users/arkham/Github/JZZ_CMAKE/test08/build/cmake_test3/CMakeFiles/cmake_test3.dir

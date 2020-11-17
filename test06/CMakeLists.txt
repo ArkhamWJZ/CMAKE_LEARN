@@ -4,7 +4,7 @@ project(Project1)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules/")
 
-find_package(Jian REQUIRED)
+find_package(Math REQUIRED)
 
 # Set include directories
 include_directories(

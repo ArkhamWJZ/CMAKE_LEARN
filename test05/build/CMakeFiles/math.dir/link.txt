@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc ../lib/libmath.a  CMakeFiles/math.dir/src/add.cpp.o CMakeFiles/math.dir/src/div.cpp.o CMakeFiles/math.dir/src/sub.cpp.o CMakeFiles/math.dir/src/test.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib ../lib/libmath.a

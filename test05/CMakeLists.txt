@@ -11,7 +11,7 @@
 # # 指定输出 .so 动态库的目录位置
 # SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 # # 指定生成动态库
-# ADD_LIBRARY(math ${SRC_LIST})
+# ADD_LIBRARY(math SHARED ${SRC_LIST})
 # # 指定生成版本号，VERSION指代动态库版本，SOVERSION指代API版本
 # # SET_TARGET_PROPERTIES(math PROPERTIES VERSION 1.2 SOVERSION 1)
 
@@ -20,6 +20,9 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
  
 #项目信息
 PROJECT(demo)
+
+# 生成链接库用的子目录
+# add_subdirectory(src)
  
 #头文件目录
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include)
@@ -29,13 +32,9 @@ LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib)
 #并将文件名保存在DIR_SOURECE
 AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR} DIR_SOURCE)
 message(DIR_SOURCE)
- 
-# #添加math子目录
-# ADD_SUBDIRECTORY(math)
- 
- 
+
 #指定生成目标
 ADD_EXECUTABLE(app ${DIR_SOURCE})
  
 #添加链接库
-TARGET_LINK_LIBRARIES(app libmath.a)
+TARGET_LINK_LIBRARIES(app libjian.so)

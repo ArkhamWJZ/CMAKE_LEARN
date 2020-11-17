@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/arkham/Github/JZZ_CMAKE/test05/build",
+  "command": "/usr/local/bin/g++-7   -I../include  -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.14   -o CMakeFiles/app.dir/test.cpp.o -c /Users/arkham/Github/JZZ_CMAKE/test05/test.cpp",
+  "file": "/Users/arkham/Github/JZZ_CMAKE/test05/test.cpp"
+}
+]

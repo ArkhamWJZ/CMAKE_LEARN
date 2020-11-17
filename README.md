@@ -62,6 +62,12 @@ add_executable( drawsvg
 这里的例子创建了 include src lib 三个文件夹，分别装着 .h .cpp 和预备着输出的.dylib
 
 >  生成[静态库](https://blog.csdn.net/ox0080/article/details/96453985) .a 只需要去掉 SHARED 行了，ADD_LIBRARY(math ${SRC_LIST})
+>
+>  OSX 下 MODULE 参数就是生成 .so 后缀的动态链接库了
+>
+>  有个问题得码一下，就是在OS X上，最后一步链接库的时候，.so 一直找不到。。。。。
+>
+>  不知道为毛。。。。。。
 
 ```cmake
 # 指定 cmake 最低编译版本
@@ -172,4 +178,102 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS(Math
     REQUIRED_VARS Math_LIBRARIES Math_INCLUDE_PATH Math_LIBRARY_DIRS
     VERSION_VAR MATH_VERSION)
 ```
+
+### 编译器参数设置
+
+建议通过 set  命令修改`CMAKE_CXX_FLAGS`或`CMAKE_C_FLAGS`。
+
+set 命令设置`CMAKE_C_FLAGS`或`CMAKE_CXX_FLAGS`变量分别只针对c和c++编译器的。
+
+Clang [参数汇总](https://clang.llvm.org/docs/ClangCommandLineReference.html)
+
+GCC [参数汇总](https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html)
+
+```cmake
+# Check compiler
+# clang 编译参数设置
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+
+  set(CLANG_CXX_FLAGS "-std=c++17 -m64 -O3 -funroll-loops")
+  set(CLANG_CXX_FLAGS "${CLANG_CXX_FLAGS} -Wno-narrowing")
+  set(CLANG_CXX_FLAGS "${CLANG_CXX_FLAGS} -Wno-deprecated-register")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CLANG_CXX_FLAGS}")
+
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  
+  # UNIX
+  if(UNIX)
+
+    set(GCC_CXX_FLAGS "-std=gnu++11 -m64 -O3 -funroll-loops")
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -fopenmp")
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXi")
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXxf86vm")
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXinerama") 
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXcursor") 
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXfixes") 
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXrandr") 
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXext")
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXrender") 
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lX11")
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lpthread") 
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lxcb") 
+    set(GCC_CXX_FLAGS "${GCC_CXX_FLAGS} -lXau")  
+  endif(UNIX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_CXX_FLAGS}")
+
+endif()
+```
+
+### 模块化
+
+在 test08 中，提供的是一个非常有趣的例子。
+
+使用 include 指令用来载入并运行来自于文件或模块的CMake代码 ；（这样就可以把一些函数和宏的编写过程扔到外面去了）
+
+通过 ADD_SUBDIRECTORY( )  添加子目录，接着跑每个子目录自己的 CMakeLists.txt 文件
+
+```cmake
+# CMake版本要求
+cmake_minimum_required(VERSION 2.8)
+project(Test)
+
+# 生成的可执行文件及共享库的存放位置 
+# PROJECT_SOURCE_DIR表示项目的顶级目录
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/obj)
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/obj)
+
+# 头文件路径
+include_directories(${PROJECT_SOURCE_DIR}/include)
+# 共享库位置
+LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib)
+
+
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+include(set_cxx_norm)
+include(macroTest)
+include(functionTest)
+
+message(${CMAKE_MODULE_PATH})
+set(var "ABC")
+Moo(${var})
+Woo()
+
+
+# 添加构建子目录
+ADD_SUBDIRECTORY(cmake_test1)
+ADD_SUBDIRECTORY(cmake_test2)
+ADD_SUBDIRECTORY(cmake_test3)
+```
+
+
+
+### 函数与宏
+
+宏和函数的用法非常非常相似，都是创建一段有名字的代码稍后可以调用，还可以传参数。
+
+不同的地方在于，宏的ARGN、ARGV等内部变量不能直接在 if 和 foreach(..IN LISTS..) 中使用。
+
+需要使用变量赋值后使用变量进行逻辑分支操作。
+
+**在 test09 中有很详细的测试代码。**
 
