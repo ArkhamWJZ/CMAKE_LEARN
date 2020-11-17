@@ -2,6 +2,7 @@
 
 ## All we need to know
 
+```shell
 mkdir build
 
 cd build
@@ -11,6 +12,9 @@ cmake .. // 提供cmakelist.txt路径，作为参数运行cmake
 make -j4 // -j4 使用四个内核进行并行编译
 
 ./[项目名 代表可执行文件]
+```
+
+
 
 ### 有趣的变量
 
@@ -103,7 +107,7 @@ TARGET_LINK_LIBRARIES(hello math)
 
 也很有趣，可以规范你的 CMakeLists 文件，更显整洁。
 
-在 CMakeLists 中找包的时候，我们一般这么写 `` find_package(Math REQUIRED)`` 。如果要链接到自己的库，一般会到相应的 .cmake 模块文件中找（cmake  文件的命名是有规范的，比如你在lists 文件中这样写 find_package(Math REQUIRED)  则对应的 cmake 文件要求命名为 FindJian.cmake / JianConfig.cmake / jian-config.cmake）。
+在 CMakeLists 中找包的时候，我们一般这么写 `` find_package(Math REQUIRED)`` 。如果要链接到自己的库，一般会到相应的 .cmake 模块文件中找（cmake  文件的命名是有规范的，比如你在lists 文件中这样写 find_package(Jian REQUIRED)  则对应的 cmake 文件要求命名为 FindJian.cmake / JianConfig.cmake / jian-config.cmake）。
 
 ```cmake
 cmake_minimum_required(VERSION 2.8)
