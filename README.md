@@ -49,13 +49,15 @@ add_executable( drawsvg
 
 
 
-### 生成动态链接库
+### 生成动态/静态链接库
 
 有意思的来了，.h .cpp 生成动态链接库 .dylib (这里起名叫 math 实际上命名为 libmath.dylib)
 
 跑的时候只要.h 和 dylib就行了
 
 这里的例子创建了 include src lib 三个文件夹，分别装着 .h .cpp 和预备着输出的.dylib
+
+>  生成[静态库](https://blog.csdn.net/ox0080/article/details/96453985) .a 只需要去掉 SHARED 行了，ADD_LIBRARY(math ${SRC_LIST})
 
 ```cmake
 # 指定 cmake 最低编译版本
@@ -93,5 +95,77 @@ LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib)
 ADD_EXECUTABLE(hello test.cpp)
 #为hello添加共享库链接
 TARGET_LINK_LIBRARIES(hello math)
+# 暴力链接 target_link_libraries(abc ${PROJECT_SOURCE_DIR}/lib/libmath.a)
+# 但这样写可移植性很差，不优雅
+```
+
+### cmake 模块
+
+也很有趣，可以规范你的 CMakeLists 文件，更显整洁。
+
+在 CMakeLists 中找包的时候，我们一般这么写 `` find_package(Math REQUIRED)`` 。如果要链接到自己的库，一般会到相应的 .cmake 模块文件中找（cmake  文件的命名是有规范的，比如你在lists 文件中这样写 find_package(Math REQUIRED)  则对应的 cmake 文件要求命名为 FindJian.cmake / JianConfig.cmake / jian-config.cmake）。
+
+```cmake
+cmake_minimum_required(VERSION 2.8)
+project(Project1)
+
+# 添加路径
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules/")
+
+# 对 cmake 文件的命名是有规范的
+find_package(Math REQUIRED)
+
+# 下面三个变量都是在 cmake 文件中查找出来的
+# Set include directories
+include_directories(
+    ${Math_INCLUDE_PATH}
+)
+# Set link directories
+link_directories(
+    ${Math_LIBRARY_DIRS}
+)
+
+add_executable(abc test.cpp)
+target_link_libraries(abc ${Math_LIBRARIES})
+```
+
+
+
+对应的 cmake 查找模块编写
+
+没啥要注意的，看下面示例即可。注意这些提供的功能函数的参数，非常丰富，可定制化非常强
+
+建议用的时候对应文档
+
+```cmake
+set(MATH_INC_NAMES jian.h)
+set(MATH_LIB_NAMES libjian.a)
+
+# jian static library
+find_library(Math_LIBRARIES 
+    NAMES ${MATH_LIB_NAMES}
+    PATHS ${PROJECT_SOURCE_DIR}/lib/)
+
+# jian library dir 在 CMakeLists 中添加静态链接库有用
+# 这样写比较规范
+find_path(Math_LIBRARY_DIRS
+    NAMES ${MATH_LIB_NAMES}
+    PATHS ${PROJECT_SOURCE_DIR}/lib/
+)
+
+# jian include dir
+find_path(Math_INCLUDE_PATH 
+    NAMES ${MATH_INC_NAMES}
+    PATHS ${PROJECT_SOURCE_DIR}/include/)
+
+# Version
+set(MATH_VERSION 1.0)
+
+# Set package standard args
+# 检查这几个变量都找到没有
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(Math
+    REQUIRED_VARS Math_LIBRARIES Math_INCLUDE_PATH Math_LIBRARY_DIRS
+    VERSION_VAR MATH_VERSION)
 ```
 

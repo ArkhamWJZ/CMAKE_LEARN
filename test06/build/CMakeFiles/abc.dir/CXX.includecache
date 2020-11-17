@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/add.h
+
+../include/div.h
+
+../include/jian.h
+add.h
+../include/add.h
+div.h
+../include/div.h
+sub.h
+../include/sub.h
+
+../include/sub.h
+
+/Users/arkham/Github/JZZ_CMAKE/test06/test.cpp
+stdio.h
+-
+jian.h
+/Users/arkham/Github/JZZ_CMAKE/test06/jian.h
+
