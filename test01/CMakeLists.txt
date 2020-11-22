@@ -1,14 +1,18 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 project (Test VERSION 1.2.3.4)
+# if() 条件专题 + message(FATAL_ERROR 报错中断)
 
-set(v0 ON)
-
+# ON  true / OFF false
+message("")
+set(v0 ON) 
 if(v0)
   message(STATUS "v0 true")
 else()
   message(FATAL_ERROR "error")
 endif()
+message("")
 
+# EQUAL 相等
 set(idx -1)
 if(idx EQUAL -1)
   message(STATUS "idx == -1 is true")
@@ -23,7 +27,9 @@ if(A EQUAL B)
 else()
   message(FATAL_ERROR "error")
 endif()
+message("")
 
+# if(TRUE)
 set (A_B TRUE)
 set (pB B)
 if(A_${pB})
@@ -31,7 +37,9 @@ if(A_${pB})
 else()
   message(FATAL_ERROR "error")
 endif()
+message("")
 
+# if(OFF)
 set (str "OFF")
 if(str)
   message(STATUS "str true")

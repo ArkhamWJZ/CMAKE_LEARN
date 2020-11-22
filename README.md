@@ -2,6 +2,8 @@
 
 ## All we need to know
 
+[cmake 官方文档检索](https://cmake.org/cmake/help/latest/search.html?)
+
 ```shell
 mkdir build
 
@@ -14,7 +16,9 @@ make -j4 // -j4 使用四个内核进行并行编译
 ./[项目名 代表可执行文件]
 ```
 
+### 基础语法
 
+看看就懂了？
 
 ### 有趣的变量
 
