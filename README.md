@@ -4,6 +4,12 @@
 
 [cmake 官方文档检索](https://cmake.org/cmake/help/latest/search.html?)
 
+[cmake入门教程](https://www2.slideshare.net/DanielPfeifer1/cmake-48475415) 包括必要的简介和一些开发中的建议
+
+[cmake进阶教程](https://www2.slideshare.net/DanielPfeifer1/effective-cmake) 偏实用开发向
+
+
+
 ```shell
 mkdir build
 
